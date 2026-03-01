@@ -16,9 +16,11 @@ pipeline {
 }
        
 
-        stage('Build') {
+       stage('Build') {
             steps {
-                bat 'mvn clean compile'
+                dir('my-app') {
+                    bat 'mvn clean compile'
+                }
             }
         }
 
