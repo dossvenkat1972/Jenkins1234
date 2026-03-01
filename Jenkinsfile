@@ -14,7 +14,7 @@ pipeline {
             url: 'https://github.com/dossvenkat1972/Jenkins1234.git'
     }
 }
-        }
+       
 
         stage('Build') {
             steps {
