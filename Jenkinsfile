@@ -2,30 +2,19 @@ pipeline {
     agent any
 
     tools {
-        jdk 'JDK25'       // Configure in Global Tool Config
+        jdk 'JDK25'
         maven 'Maven3'
-    }
-
-    environment {
-        APP_NAME = "my-app"
     }
 
     stages {
 
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                git branch: 'main',
-                url: 'https://github.com/dossvenkat1972/Jenkins1234.git'
+                git 'https://github.com/dossvenkat1972/Jenkins1234.git'
             }
         }
 
-        stage('Verify Workspace') {
-            steps {
-                bat 'dir'
-            }
-        }
-
-        stage('Build Project') {
+        stage('Build') {
             steps {
                 dir('my-app') {
                     bat 'mvn clean package'
@@ -33,28 +22,19 @@ pipeline {
             }
         }
 
-        stage('Run Application') {
+        stage('Run') {
             steps {
                 dir('my-app') {
-                    bat 'java -jar target/my-app-1.0.jar'
+                    bat 'dir target'
+                    bat 'for %%f in (target\\*.jar) do java -jar %%f'
                 }
             }
         }
 
-        stage('Archive Artifact') {
+        stage('Archive') {
             steps {
-                archiveArtifacts artifacts: 'my-app/target/*.jar',
-                fingerprint: true
+                archiveArtifacts artifacts: 'my-app/target/*.jar'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'BUILD SUCCESS ✅'
-        }
-        failure {
-            echo 'BUILD FAILED ❌'
         }
     }
 }
