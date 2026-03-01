@@ -26,7 +26,9 @@ pipeline {
 
         stage('Test') {
             steps {
-                bat 'mvn test'
+                 dir('my-app') {
+                    bat 'mvn clean compile'
+                }
             }
         }
 
