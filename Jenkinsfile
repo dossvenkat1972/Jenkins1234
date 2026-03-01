@@ -9,9 +9,11 @@ pipeline {
     stages {
 
         stage('Checkout') {
-            steps {
-                git ' https://github.com/dossvenkat1972/Jenkins1234.git'
-            }
+    steps {
+        git branch: 'main',
+            url: 'https://github.com/dossvenkat1972/Jenkins1234.git'
+    }
+}
         }
 
         stage('Build') {
